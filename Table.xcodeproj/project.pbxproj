@@ -34,6 +34,7 @@
 		179DAD7B16381F7100B997CE /* ItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 179DAD7A16381F7100B997CE /* ItemViewController.m */; };
 		179DAD7E16382F4400B997CE /* ToastService.m in Sources */ = {isa = PBXBuildFile; fileRef = 179DAD7D16382F4400B997CE /* ToastService.m */; };
 		179DAD891638523400B997CE /* NSNull+FIT.m in Sources */ = {isa = PBXBuildFile; fileRef = 179DAD881638523400B997CE /* NSNull+FIT.m */; };
+		179DAD8C16387C3400B997CE /* NSString+FIT.m in Sources */ = {isa = PBXBuildFile; fileRef = 179DAD8B16387C3400B997CE /* NSString+FIT.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +87,8 @@
 		179DAD7D16382F4400B997CE /* ToastService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToastService.m; sourceTree = "<group>"; };
 		179DAD871638523400B997CE /* NSNull+FIT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNull+FIT.h"; sourceTree = "<group>"; };
 		179DAD881638523400B997CE /* NSNull+FIT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNull+FIT.m"; sourceTree = "<group>"; };
+		179DAD8A16387C3400B997CE /* NSString+FIT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FIT.h"; sourceTree = "<group>"; };
+		179DAD8B16387C3400B997CE /* NSString+FIT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FIT.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +170,8 @@
 			children = (
 				179DAD7216381E0900B997CE /* MBProgressHUD */,
 				179DAD7016381E0000B997CE /* AFNetworking */,
+				179DAD8A16387C3400B997CE /* NSString+FIT.h */,
+				179DAD8B16387C3400B997CE /* NSString+FIT.m */,
 			);
 			name = Extra;
 			sourceTree = "<group>";
@@ -322,6 +327,7 @@
 				179DAD7B16381F7100B997CE /* ItemViewController.m in Sources */,
 				179DAD7E16382F4400B997CE /* ToastService.m in Sources */,
 				179DAD891638523400B997CE /* NSNull+FIT.m in Sources */,
+				179DAD8C16387C3400B997CE /* NSString+FIT.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

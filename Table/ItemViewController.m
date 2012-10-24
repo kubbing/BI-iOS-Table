@@ -7,8 +7,8 @@
 //
 
 #import "ItemViewController.h"
-//#import "UIImageView+AFNetworking.h"
 #import "NetworkService.h"
+#import "ToastService.h"
 
 @implementation ItemViewController
 
@@ -20,12 +20,46 @@
     _descriptionCell.detailTextLabel.text = _item.subtitle;
     _imageCell.imageView.image = [UIImage imageNamed:@"kitty"];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonTapped:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveButtonTapped:)];
 }
 
-- (void)addButtonTapped:(id)sender
+- (void)saveButtonTapped:(id)sender
 {
-    [[NetworkService sharedService] newItemWithItem:[[Item alloc] init]];
+    if (_item) {
+        /*
+         TODO:
+         mame _item, taze budeme updatovat a NEbudeme vytvaret novy item na serveru
+         takze HTTP PUT
+         
+         [NetworkService sharedService] updateItemWithId: withItem:
+         */
+    }
+    else {
+        /*
+         TODO:
+         zadny item nemame a tak ho musime vytvorit
+         takze HTTP POST
+         */
+        
+        Item *item = [[Item alloc] init];
+        item.title = [[NSDate date] description];
+        
+        /*
+         nastavime mu properties
+         item.title = titleTextField.text
+         ...
+         */
+        
+        DEFINE_BLOCK_SELF;
+        [[NetworkService sharedService] createItem:item success:^{
+            if (blockSelf.onSave) {
+                blockSelf.onSave(item);
+            }
+        } failure:^{
+            [[ToastService sharedService] toastErrorWithTitle:@"Error" subtitle:@"Could not create item."];
+        }];
+    }
+
 }
 
 @end

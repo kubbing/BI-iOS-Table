@@ -73,7 +73,7 @@
               }];
 }
 
-- (void)getItemsSuccess:(void (^)(NSMutableArray *))onSuccess
+- (void)getItemsSuccess:(void (^)(NSMutableArray *))onSuccess failure:(void (^)())onFailure
 {
     [self getJSONAtPath:@"items.json"
                 success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -87,7 +87,9 @@
                         onSuccess(itemArray);
                     }
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                    ;
+                    if (onFailure) {
+                        onFailure();
+                    }
                 }];
 }
 
@@ -101,14 +103,18 @@
                 }];
 }
 
-- (void)newItemWithItem:(Item *)item
+- (void)createItem:(Item *)item success:(void (^)())onSuccess failure:(void (^)())onFailure
 {    
     [self postJSONObject:[item JSONObject]
                   toPath:@"items"
                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                     ;
+                     if (onSuccess) {
+                         onSuccess();
+                     }
                  } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                     ;
+                     if (onFailure) {
+                         onFailure();
+                     }
                  }];
 }
 

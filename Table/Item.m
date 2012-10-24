@@ -16,8 +16,8 @@
     if (self) {
         TRC_OBJ(JSONObject);
         
-        _title = JSONObject[@"title"];
-        _subtitle = JSONObject[@"subtitle"];
+        _title = [JSONObject[@"title"] stringValue];
+        _subtitle = [JSONObject[@"subtitle"] stringValue];
 //        NSNumber *number = JSONObject[@"price"];
 //        if ((NSNull *)number != [NSNull null]) {
 //            _price = number.floatValue;
@@ -30,6 +30,11 @@
             formatter.dateFormat = @"yyyy-MM-dd";
             _available = [formatter dateFromString:dateString];
         }
+        
+        /*
+         TODO: dodelat dalsi atributy
+         "2012-10-24T14:03:27Z" timestamp ma format string "yyyy-MM-dd'T'HH:mm:ssZ"
+         */
     }
     
     return self;
@@ -37,11 +42,15 @@
 
 - (NSDictionary *)JSONObject
 {
+    /*
+     Do NSDictionaty @ { key : value} nesmi prijit nil, takze tam dame zastupny objekt [NSNull null]
+     */
+    
     return @{
-    @"item[title]" : @"yahooo",
-    @"item[subtitle]" : @"dobry den",
-    @"item[description]" : @"desc text text",
-    @"item[price]" : @(6.50)
+    @"item[title]" : _title? _title : [NSNull null],
+    @"item[subtitle]" : _subtitle? _subtitle : [NSNull null],
+    @"item[description]" : [NSNull null],
+    @"item[price]" : @(3.1415)
     };
 }
 

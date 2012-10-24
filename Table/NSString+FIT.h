@@ -1,5 +1,5 @@
 //
-//  NSNull+FIT.h
+//  NSString+FIT.h
 //  Table
 //
 //  Created by Jakub Hladík on 24.10.12.
@@ -8,9 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSNull (FIT)
+@interface NSString (FIT)
 
-- (CGFloat)floatValue;
 - (NSString *)stringValue;
 
 @end

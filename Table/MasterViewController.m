@@ -10,6 +10,7 @@
 #import "ItemViewController.h"
 #import "NetworkService.h"
 #import "Item.h"
+#import "ToastService.h"
 
 @interface MasterViewController ()
 
@@ -69,6 +70,8 @@
         blockSelf.itemArray = array;
         [blockSelf.refreshControl endRefreshing];
         [blockSelf.tableView reloadData];
+    } failure:^{
+        [[ToastService sharedService] toastErrorWithTitle:@"Error" subtitle:@"Could not load items."];
     }];
 }
 
@@ -228,6 +231,10 @@
         DEFINE_BLOCK_SELF;
         controller.onSave = ^(Item *item){
             [blockSelf.navigationController dismissViewControllerAnimated:YES completion:nil];
+            
+            /*
+             TODO: pridat item do tabulky
+             */
         };
         
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
@@ -268,7 +275,12 @@
     
     ItemViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"ItemViewController"];
     controller.item = _itemArray[indexPath.row];
-[self.navigationController pushViewController:controller animated:YES];
+    controller.onSave = ^(Item *item){
+        /*
+         TODO: updatovat item v array (prepsat) a aktualizovat radek tabulky
+         */
+    };
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 @end

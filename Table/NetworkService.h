@@ -23,9 +23,9 @@
                success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))onSuccess
                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))onFailure;
 
-- (void)getItemsSuccess:(void (^)(NSMutableArray *array))onSuccess;
+- (void)getItemsSuccess:(void (^)(NSMutableArray *array))onSuccess failure:(void (^)())onFailure;
 - (void)getItemWithId:(NSUInteger)anId;
 
-- (void)newItemWithItem:(Item *)item;
+- (void)createItem:(Item *)item success:(void (^)())onSuccess failure:(void (^)())onFailure;
 
 @end
