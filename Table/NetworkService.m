@@ -31,8 +31,8 @@
 {
     self = [super init];
     if (self) {
-        NSURL *url = [NSURL URLWithString:@"http://localhost:3000"];
-//                NSURL *url = [NSURL URLWithString:@"http://illy.kubbing.com:3000"];
+//        NSURL *url = [NSURL URLWithString:@"http://localhost:3000"];
+        NSURL *url = [NSURL URLWithString:@"http://illy.kubbing.com:3000"];
         _client = [AFHTTPClient clientWithBaseURL:url];
         [_client registerHTTPOperationClass:[AFJSONRequestOperation class]];
         _client.operationQueue.maxConcurrentOperationCount = 2;
@@ -106,7 +106,7 @@
 - (void)createItem:(Item *)item success:(void (^)())onSuccess failure:(void (^)())onFailure
 {    
     [self postJSONObject:[item JSONObject]
-                  toPath:@"items"
+                  toPath:@"items.json"
                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
                      if (onSuccess) {
                          onSuccess();

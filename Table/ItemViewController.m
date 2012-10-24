@@ -51,15 +51,15 @@
          */
         
         DEFINE_BLOCK_SELF;
-        [[NetworkService sharedService] createItem:item success:^{
-            if (blockSelf.onSave) {
-                blockSelf.onSave(item);
-            }
-        } failure:^{
-            [[ToastService sharedService] toastErrorWithTitle:@"Error" subtitle:@"Could not create item."];
-        }];
+        [[NetworkService sharedService] createItem:item
+                                           success:^{
+                                               if (blockSelf.onSave) {
+                                                   blockSelf.onSave(item);
+                                               }
+                                           } failure:^{
+                                               [[ToastService sharedService] toastErrorWithTitle:@"Error" subtitle:@"Could not create item."];
+                                           }];
     }
-
 }
 
 @end
