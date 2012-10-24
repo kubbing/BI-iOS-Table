@@ -10,6 +10,11 @@
 
 @interface Item : NSObject
 
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *subtitle;
+@property (nonatomic, assign) CGFloat price;
+@property (nonatomic, strong) NSDate *available;
+
 - (id)initWithJSONObject:(NSDictionary *)JSONObject;
 
 - (NSDictionary *)JSONObject;

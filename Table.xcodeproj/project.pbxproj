@@ -33,6 +33,7 @@
 		179DAD7516381E7200B997CE /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 179DAD7416381E7200B997CE /* MBProgressHUD.m */; };
 		179DAD7B16381F7100B997CE /* ItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 179DAD7A16381F7100B997CE /* ItemViewController.m */; };
 		179DAD7E16382F4400B997CE /* ToastService.m in Sources */ = {isa = PBXBuildFile; fileRef = 179DAD7D16382F4400B997CE /* ToastService.m */; };
+		179DAD891638523400B997CE /* NSNull+FIT.m in Sources */ = {isa = PBXBuildFile; fileRef = 179DAD881638523400B997CE /* NSNull+FIT.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,6 +84,8 @@
 		179DAD7A16381F7100B997CE /* ItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemViewController.m; sourceTree = "<group>"; };
 		179DAD7C16382F4400B997CE /* ToastService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToastService.h; sourceTree = "<group>"; };
 		179DAD7D16382F4400B997CE /* ToastService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToastService.m; sourceTree = "<group>"; };
+		179DAD871638523400B997CE /* NSNull+FIT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNull+FIT.h"; sourceTree = "<group>"; };
+		179DAD881638523400B997CE /* NSNull+FIT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNull+FIT.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +141,8 @@
 				170DFBAB162F177400D163D3 /* MainStoryboard.storyboard */,
 				170DFB9A162F177400D163D3 /* Supporting Files */,
 				173D4FC216380A59003795D2 /* Extra */,
+				179DAD871638523400B997CE /* NSNull+FIT.h */,
+				179DAD881638523400B997CE /* NSNull+FIT.m */,
 			);
 			path = Table;
 			sourceTree = "<group>";
@@ -316,6 +321,7 @@
 				179DAD7516381E7200B997CE /* MBProgressHUD.m in Sources */,
 				179DAD7B16381F7100B997CE /* ItemViewController.m in Sources */,
 				179DAD7E16382F4400B997CE /* ToastService.m in Sources */,
+				179DAD891638523400B997CE /* NSNull+FIT.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,12 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Item.h"
 
 @interface ItemViewController : UITableViewController
+
+@property (nonatomic, strong) Item *item;
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *imageCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *subtitleCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *descriptionCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *priceCell;
+
+@property (nonatomic, strong) void (^onSave)(Item *item);
 
 @end

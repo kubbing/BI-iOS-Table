@@ -8,6 +8,8 @@
 
 #import "MasterViewController.h"
 #import "ItemViewController.h"
+#import "NetworkService.h"
+#import "Item.h"
 
 @interface MasterViewController ()
 
@@ -45,7 +47,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
+    [self.refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
     [self refresh:self.refreshControl];
     [self.refreshControl beginRefreshing];
 }
@@ -62,12 +64,12 @@
 {
     TRC_ENTRY;
     
-    DEFINE_BLOCK_SELF;
-    int64_t delayInSeconds = 4.0;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    DEFINE_BLOCK_SELF; // __weak MasterViewController *blockSelf = self;
+    [[NetworkService sharedService] getItemsSuccess:^(NSMutableArray *array) {
+        blockSelf.itemArray = array;
         [blockSelf.refreshControl endRefreshing];
-    });
+        [blockSelf.tableView reloadData];
+    }];
 }
 
 - (void)addItem
@@ -151,21 +153,19 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"[%d, %d]", indexPath.section, indexPath.row);
-    
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(320 - 180 -4, 2, 80, 20)];
-        label.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
-        label.textAlignment = UITextAlignmentRight;
-        label.tag = 1;
-        label.adjustsFontSizeToFitWidth = YES;
-        [cell.contentView addSubview:label];
-        
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+//        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(320 - 180 -4, 2, 80, 20)];
+//        label.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
+//        label.textAlignment = UITextAlignmentRight;
+//        label.tag = 1;
+//        label.adjustsFontSizeToFitWidth = YES;
+//        [cell.contentView addSubview:label];
+//        
+//        cell.accessoryType = UITableViewCellAccessoryCheckmark;
 //        cell.accessoryView = [[UISwitch alloc] init];
     }
     
@@ -174,16 +174,17 @@
         return cell;
     }
     
-    cell.textLabel.text = [NSString stringWithFormat:@"%d", indexPath.row];
-    cell.detailTextLabel.text = [[NSDate date] description];
-    cell.imageView.image = [UIImage imageNamed:@"kitty"];
+    Item *item = _itemArray[indexPath.row];
+    cell.textLabel.text = item.title;
+    cell.detailTextLabel.text = item.subtitle;
+//    cell.imageView.image = [UIImage imageNamed:@"kitty"];
     
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateStyle = NSDateFormatterNoStyle;
-    formatter.timeStyle = NSDateFormatterMediumStyle;
-    NSString *timeString = [formatter stringFromDate:_itemArray[indexPath.row]];
-    UILabel *dateLabel = (UILabel *)[cell.contentView viewWithTag:1];
-    dateLabel.text = timeString;
+//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//    formatter.dateStyle = NSDateFormatterNoStyle;
+//    formatter.timeStyle = NSDateFormatterMediumStyle;
+//    NSString *timeString = [formatter stringFromDate:_itemArray[indexPath.row]];
+//    UILabel *dateLabel = (UILabel *)[cell.contentView viewWithTag:1];
+//    dateLabel.text = item.;
     
     // Configure the cell...
     
@@ -221,10 +222,16 @@
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-//        ItemViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"ItemViewNavigationController"];
-//        [self presentViewController:controller animated:YES completion:nil];
         
-        [self addItem];
+        ItemViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"ItemViewController"];
+        
+        DEFINE_BLOCK_SELF;
+        controller.onSave = ^(Item *item){
+            [blockSelf.navigationController dismissViewControllerAnimated:YES completion:nil];
+        };
+        
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
+        [self.navigationController presentViewController:navController animated:YES completion:nil];
     }   
 }
 
@@ -259,10 +266,9 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
     
-    [[[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%d", indexPath.row]
-                               message:nil
-                              delegate:nil
-                     cancelButtonTitle:nil otherButtonTitles:@"Ok", nil] show];
+    ItemViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"ItemViewController"];
+    controller.item = _itemArray[indexPath.row];
+[self.navigationController pushViewController:controller animated:YES];
 }
 
 @end

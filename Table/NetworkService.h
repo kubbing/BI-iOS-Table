@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "AFHTTPRequestOperation.h"
+#import "Item.h"
 
 @interface NetworkService : NSObject
 
@@ -22,9 +23,9 @@
                success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))onSuccess
                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))onFailure;
 
-- (void)getItems;
+- (void)getItemsSuccess:(void (^)(NSMutableArray *array))onSuccess;
 - (void)getItemWithId:(NSUInteger)anId;
 
-- (void)newItem;
+- (void)newItemWithItem:(Item *)item;
 
 @end

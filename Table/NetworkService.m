@@ -10,6 +10,7 @@
 #import "AFHTTPClient.h"
 #import "AFJSONRequestOperation.h"
 #import "ToastService.h"
+#import "Item.h"
 
 @interface NetworkService ()
 
@@ -30,7 +31,8 @@
 {
     self = [super init];
     if (self) {
-        NSURL *url = [NSURL URLWithString:@"http://illy.kubbing.com:3000"];
+        NSURL *url = [NSURL URLWithString:@"http://localhost:3000"];
+//                NSURL *url = [NSURL URLWithString:@"http://illy.kubbing.com:3000"];
         _client = [AFHTTPClient clientWithBaseURL:url];
         [_client registerHTTPOperationClass:[AFJSONRequestOperation class]];
         _client.operationQueue.maxConcurrentOperationCount = 2;
@@ -71,11 +73,19 @@
               }];
 }
 
-- (void)getItems
+- (void)getItemsSuccess:(void (^)(NSMutableArray *))onSuccess
 {
     [self getJSONAtPath:@"items.json"
                 success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                    TRC_OBJ(responseObject);
+                    NSMutableArray *itemArray = [NSMutableArray array];
+                    for (NSDictionary *itemDictionary in responseObject) {
+                        Item *item = [[Item alloc] initWithJSONObject:itemDictionary];
+                        [itemArray addObject:item];
+                    }
+                    
+                    if (onSuccess) {
+                        onSuccess(itemArray);
+                    }
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     ;
                 }];
@@ -91,18 +101,9 @@
                 }];
 }
 
-- (void)newItem
-{
-    NSDictionary *item = @{
-    @"item[title]" : @"yahooo",
-    @"item[subtitle]" : @"dobry den",
-    @"item[description]" : @"desc text text",
-    @"item[price]" : @(6.50)
-    };
-    
-    TRC_OBJ(item);
-    
-    [self postJSONObject:item
+- (void)newItemWithItem:(Item *)item
+{    
+    [self postJSONObject:[item JSONObject]
                   toPath:@"items"
                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
                      ;
