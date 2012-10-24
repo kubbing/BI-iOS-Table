@@ -67,6 +67,7 @@
 		173D4FD416380A65003795D2 /* AFXMLRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFXMLRequestOperation.m; sourceTree = "<group>"; };
 		173D4FD516380A65003795D2 /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
 		173D4FD616380A65003795D2 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
+		173D4FEC16380DAD003795D2 /* Support.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Support.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,7 +114,7 @@
 		170DFB99162F177400D163D3 /* Table */ = {
 			isa = PBXGroup;
 			children = (
-				173D4FC216380A59003795D2 /* Network */,
+				173D4FC216380A59003795D2 /* Extra */,
 				170DFBB9162F1ABA00D163D3 /* kitty.png */,
 				170DFBA2162F177400D163D3 /* AppDelegate.h */,
 				170DFBA3162F177400D163D3 /* AppDelegate.m */,
@@ -128,6 +129,7 @@
 		170DFB9A162F177400D163D3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				173D4FEC16380DAD003795D2 /* Support.h */,
 				170DFB9B162F177400D163D3 /* Table-Info.plist */,
 				170DFB9C162F177400D163D3 /* InfoPlist.strings */,
 				170DFB9F162F177400D163D3 /* main.m */,
@@ -139,7 +141,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		173D4FC216380A59003795D2 /* Network */ = {
+		173D4FC216380A59003795D2 /* Extra */ = {
 			isa = PBXGroup;
 			children = (
 				173D4FC416380A65003795D2 /* AFHTTPClient.h */,
@@ -162,7 +164,7 @@
 				173D4FD516380A65003795D2 /* UIImageView+AFNetworking.h */,
 				173D4FD616380A65003795D2 /* UIImageView+AFNetworking.m */,
 			);
-			name = Network;
+			name = Extra;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
