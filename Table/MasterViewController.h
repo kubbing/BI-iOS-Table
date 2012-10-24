@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  MasterViewController.h
 //  Table
 //
 //  Created by Jakub Hladík on 17.10.12.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface MasterViewController : UITableViewController
 
 @end
