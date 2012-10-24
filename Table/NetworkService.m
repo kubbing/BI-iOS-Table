@@ -103,13 +103,14 @@
                 }];
 }
 
-- (void)createItem:(Item *)item success:(void (^)())onSuccess failure:(void (^)())onFailure
+- (void)createItem:(Item *)item success:(void (^)(Item *item))onSuccess failure:(void (^)())onFailure
 {    
     [self postJSONObject:[item JSONObject]
                   toPath:@"items.json"
                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                     Item *item = [[Item alloc] initWithJSONObject:responseObject];
                      if (onSuccess) {
-                         onSuccess();
+                         onSuccess(item);
                      }
                  } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                      if (onFailure) {

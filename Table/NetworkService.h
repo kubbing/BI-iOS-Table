@@ -26,6 +26,6 @@
 - (void)getItemsSuccess:(void (^)(NSMutableArray *array))onSuccess failure:(void (^)())onFailure;
 - (void)getItemWithId:(NSUInteger)anId;
 
-- (void)createItem:(Item *)item success:(void (^)())onSuccess failure:(void (^)())onFailure;
+- (void)createItem:(Item *)item success:(void (^)(Item *item))onSuccess failure:(void (^)())onFailure;
 
 @end

@@ -52,7 +52,7 @@
         
         DEFINE_BLOCK_SELF;
         [[NetworkService sharedService] createItem:item
-                                           success:^{
+                                           success:^(Item *item){
                                                if (blockSelf.onSave) {
                                                    blockSelf.onSave(item);
                                                }
