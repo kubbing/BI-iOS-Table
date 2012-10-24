@@ -23,6 +23,7 @@
                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))onFailure;
 
 - (void)getItems;
+- (void)getItemWithId:(NSUInteger)anId;
 
 - (void)newItem;
 

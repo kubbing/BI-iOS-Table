@@ -7,8 +7,11 @@
 //
 
 #import "MasterViewController.h"
+#import "ItemViewController.h"
 
 @interface MasterViewController ()
+
+@property (nonatomic, assign) BOOL editing;
 
 @property (nonatomic, strong) NSMutableArray *itemArray;
 
@@ -41,12 +44,30 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
+    [self refresh:self.refreshControl];
+    [self.refreshControl beginRefreshing];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Actions
+
+- (void)refresh:(id)sender
+{
+    TRC_ENTRY;
+    
+    DEFINE_BLOCK_SELF;
+    int64_t delayInSeconds = 4.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [blockSelf.refreshControl endRefreshing];
+    });
 }
 
 - (void)addItem
@@ -64,6 +85,8 @@
 
 - (void)editButtonTapped:(id)sender
 {
+        _editing = YES;
+    
     UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneButtonTapped:)];
     self.navigationItem.rightBarButtonItem = doneItem;
     
@@ -73,10 +96,14 @@
     [self.tableView insertRowsAtIndexPaths:@[ indexPath ]
                           withRowAnimation:UITableViewRowAnimationFade];
     [self.tableView endUpdates];
+    
+
 }
 
 - (void)doneButtonTapped:(id)sender
 {
+       _editing = NO;
+    
     UIBarButtonItem *editItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonTapped:)];
     self.navigationItem.rightBarButtonItem = editItem;
     
@@ -85,6 +112,8 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_itemArray.count inSection:0];
     [self.tableView deleteRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationFade];
     [self.tableView endUpdates];
+    
+ 
 }
 
 #pragma mark - Table view data source
@@ -108,11 +137,16 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    if (self.tableView.editing == 1) {
-        return _itemArray.count + 1;
+    NSInteger count;
+    if (_editing) {
+        count = _itemArray.count + 1;
+    }
+    else {
+        count = _itemArray.count;
     }
     
-    return _itemArray.count;
+    TRC_LOG(@"%d", count);
+    return count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -187,6 +221,9 @@
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+//        ItemViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"ItemViewNavigationController"];
+//        [self presentViewController:controller animated:YES completion:nil];
+        
         [self addItem];
     }   
 }

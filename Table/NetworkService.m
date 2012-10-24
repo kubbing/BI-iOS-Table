@@ -9,6 +9,7 @@
 #import "NetworkService.h"
 #import "AFHTTPClient.h"
 #import "AFJSONRequestOperation.h"
+#import "ToastService.h"
 
 @interface NetworkService ()
 
@@ -49,6 +50,7 @@
                  onSuccess(operation, responseObject);
              } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                  TRC_LOG(@"%d, GET %@", operation.response.statusCode, operation.request.URL);
+                 [[ToastService sharedService] toastErrorWithHTTPStatusCode:operation.response.statusCode];
                  onFailure(operation, error);
              }];
 }
@@ -72,6 +74,16 @@
 - (void)getItems
 {
     [self getJSONAtPath:@"items.json"
+                success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    TRC_OBJ(responseObject);
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    ;
+                }];
+}
+
+- (void)getItemWithId:(NSUInteger)anId
+{
+    [self getJSONAtPath:[NSString stringWithFormat:@"items/%d.json", anId]
                 success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     TRC_OBJ(responseObject);
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

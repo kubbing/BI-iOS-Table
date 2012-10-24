@@ -10,8 +10,8 @@
 
 @interface Item : NSObject
 
-- (id)initWithJSONObject:(id)JSONObject;
+- (id)initWithJSONObject:(NSDictionary *)JSONObject;
 
-- (id)JSONObject;
+- (NSDictionary *)JSONObject;
 
 @end

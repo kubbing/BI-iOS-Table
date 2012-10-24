@@ -30,6 +30,9 @@
 		173D4FDF16380A65003795D2 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 173D4FD616380A65003795D2 /* UIImageView+AFNetworking.m */; };
 		173D4FF016380E32003795D2 /* NetworkService.m in Sources */ = {isa = PBXBuildFile; fileRef = 173D4FEF16380E32003795D2 /* NetworkService.m */; };
 		173D4FF316380F1A003795D2 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 173D4FF216380F1A003795D2 /* Item.m */; };
+		179DAD7516381E7200B997CE /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 179DAD7416381E7200B997CE /* MBProgressHUD.m */; };
+		179DAD7B16381F7100B997CE /* ItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 179DAD7A16381F7100B997CE /* ItemViewController.m */; };
+		179DAD7E16382F4400B997CE /* ToastService.m in Sources */ = {isa = PBXBuildFile; fileRef = 179DAD7D16382F4400B997CE /* ToastService.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +77,12 @@
 		173D4FEF16380E32003795D2 /* NetworkService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkService.m; sourceTree = "<group>"; };
 		173D4FF116380F1A003795D2 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
 		173D4FF216380F1A003795D2 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
+		179DAD7316381E7200B997CE /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		179DAD7416381E7200B997CE /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		179DAD7916381F7100B997CE /* ItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemViewController.h; sourceTree = "<group>"; };
+		179DAD7A16381F7100B997CE /* ItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemViewController.m; sourceTree = "<group>"; };
+		179DAD7C16382F4400B997CE /* ToastService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToastService.h; sourceTree = "<group>"; };
+		179DAD7D16382F4400B997CE /* ToastService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToastService.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,18 +129,15 @@
 		170DFB99162F177400D163D3 /* Table */ = {
 			isa = PBXGroup;
 			children = (
-				173D4FC216380A59003795D2 /* Extra */,
+				179DAD7816381EA700B997CE /* Controllers */,
+				179DAD7716381E8C00B997CE /* Models */,
+				179DAD7616381E8100B997CE /* Services */,
 				170DFBB9162F1ABA00D163D3 /* kitty.png */,
 				170DFBA2162F177400D163D3 /* AppDelegate.h */,
 				170DFBA3162F177400D163D3 /* AppDelegate.m */,
 				170DFBAB162F177400D163D3 /* MainStoryboard.storyboard */,
 				170DFB9A162F177400D163D3 /* Supporting Files */,
-				170DFBB6162F17FF00D163D3 /* MasterViewController.h */,
-				170DFBB7162F17FF00D163D3 /* MasterViewController.m */,
-				173D4FEE16380E32003795D2 /* NetworkService.h */,
-				173D4FEF16380E32003795D2 /* NetworkService.m */,
-				173D4FF116380F1A003795D2 /* Item.h */,
-				173D4FF216380F1A003795D2 /* Item.m */,
+				173D4FC216380A59003795D2 /* Extra */,
 			);
 			path = Table;
 			sourceTree = "<group>";
@@ -154,8 +160,15 @@
 		173D4FC216380A59003795D2 /* Extra */ = {
 			isa = PBXGroup;
 			children = (
-				179DAD7216381E0900B997CE /* MBToast */,
+				179DAD7216381E0900B997CE /* MBProgressHUD */,
 				179DAD7016381E0000B997CE /* AFNetworking */,
+			);
+			name = Extra;
+			sourceTree = "<group>";
+		};
+		179DAD7016381E0000B997CE /* AFNetworking */ = {
+			isa = PBXGroup;
+			children = (
 				173D4FC416380A65003795D2 /* AFHTTPClient.h */,
 				173D4FC516380A65003795D2 /* AFHTTPClient.m */,
 				173D4FC616380A65003795D2 /* AFHTTPRequestOperation.h */,
@@ -176,21 +189,47 @@
 				173D4FD516380A65003795D2 /* UIImageView+AFNetworking.h */,
 				173D4FD616380A65003795D2 /* UIImageView+AFNetworking.m */,
 			);
-			name = Extra;
-			sourceTree = "<group>";
-		};
-		179DAD7016381E0000B997CE /* AFNetworking */ = {
-			isa = PBXGroup;
-			children = (
-			);
 			name = AFNetworking;
 			sourceTree = "<group>";
 		};
-		179DAD7216381E0900B997CE /* MBToast */ = {
+		179DAD7216381E0900B997CE /* MBProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
+				179DAD7316381E7200B997CE /* MBProgressHUD.h */,
+				179DAD7416381E7200B997CE /* MBProgressHUD.m */,
 			);
-			name = MBToast;
+			name = MBProgressHUD;
+			sourceTree = "<group>";
+		};
+		179DAD7616381E8100B997CE /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				173D4FEE16380E32003795D2 /* NetworkService.h */,
+				173D4FEF16380E32003795D2 /* NetworkService.m */,
+				179DAD7C16382F4400B997CE /* ToastService.h */,
+				179DAD7D16382F4400B997CE /* ToastService.m */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+		179DAD7716381E8C00B997CE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				173D4FF116380F1A003795D2 /* Item.h */,
+				173D4FF216380F1A003795D2 /* Item.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		179DAD7816381EA700B997CE /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				170DFBB6162F17FF00D163D3 /* MasterViewController.h */,
+				170DFBB7162F17FF00D163D3 /* MasterViewController.m */,
+				179DAD7916381F7100B997CE /* ItemViewController.h */,
+				179DAD7A16381F7100B997CE /* ItemViewController.m */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -274,6 +313,9 @@
 				173D4FDF16380A65003795D2 /* UIImageView+AFNetworking.m in Sources */,
 				173D4FF016380E32003795D2 /* NetworkService.m in Sources */,
 				173D4FF316380F1A003795D2 /* Item.m in Sources */,
+				179DAD7516381E7200B997CE /* MBProgressHUD.m in Sources */,
+				179DAD7B16381F7100B997CE /* ItemViewController.m in Sources */,
+				179DAD7E16382F4400B997CE /* ToastService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
