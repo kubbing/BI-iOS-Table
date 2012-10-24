@@ -31,8 +31,8 @@
     
     self.navigationItem.title = @"Moje tabulka!";
     
-    UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStyleBordered target:self action:@selector(addButtonTapped:)];
-    self.navigationItem.rightBarButtonItem = addItem;
+    UIBarButtonItem *editItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonTapped:)];
+    self.navigationItem.rightBarButtonItem = editItem;
 
     _itemArray = [NSMutableArray array];
     
@@ -49,7 +49,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)addButtonTapped:(id)sender
+- (void)addItem
 {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_itemArray.count inSection:0];
     [_itemArray addObject:[NSDate date]];
@@ -62,6 +62,31 @@
     [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
+- (void)editButtonTapped:(id)sender
+{
+    UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneButtonTapped:)];
+    self.navigationItem.rightBarButtonItem = doneItem;
+    
+    [self.tableView setEditing:YES animated:YES];
+    [self.tableView beginUpdates];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_itemArray.count inSection:0];
+    [self.tableView insertRowsAtIndexPaths:@[ indexPath ]
+                          withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView endUpdates];
+}
+
+- (void)doneButtonTapped:(id)sender
+{
+    UIBarButtonItem *editItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonTapped:)];
+    self.navigationItem.rightBarButtonItem = editItem;
+    
+    [self.tableView setEditing:NO animated:YES];
+    [self.tableView beginUpdates];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_itemArray.count inSection:0];
+    [self.tableView deleteRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView endUpdates];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -70,55 +95,23 @@
     return 1;
 }
 
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//    NSString *title = nil;
-//    switch (section) {
-//        case 0:
-//            title = @"FIT";
-//            break;
-//        case 1:
-//            title = @"FEL";
-//            break;
-//        case 2:
-//            title = @"FS";
-//            break;
-//        case 3:
-//            title = @"AR";
-//            break;
-//        default:
-//            break;
-//    }
-//    
-//    return title;
-//}
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return nil;
+}
 
-//- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
-//{
-//    NSString *title = nil;
-//    switch (section) {
-//        case 0:
-//            title = @"FIT je nejlepsi";
-//            break;
-//        case 1:
-//            title = nil;
-//            break;
-//        case 2:
-//            title = @"FS je nejvic";
-//            break;
-//        case 3:
-//            title = @"AR …";
-//            break;
-//        default:
-//            break;
-//    }
-//    
-//    return title;
-//}
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
+{
+    return nil;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
+    if (self.tableView.editing == 1) {
+        return _itemArray.count + 1;
+    }
+    
     return _itemArray.count;
 }
 
@@ -138,8 +131,13 @@
         label.adjustsFontSizeToFitWidth = YES;
         [cell.contentView addSubview:label];
         
-//        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        cell.accessoryView = [[UISwitch alloc] init];
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+//        cell.accessoryView = [[UISwitch alloc] init];
+    }
+    
+    if (indexPath.row == _itemArray.count) {
+        cell.textLabel.text = @"insert new";
+        return cell;
     }
     
     cell.textLabel.text = [NSString stringWithFormat:@"%d", indexPath.row];
@@ -167,35 +165,50 @@
 }
 */
 
-/*
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == _itemArray.count) {
+        return UITableViewCellEditingStyleInsert;
+    }
+    
+    return UITableViewCellEditingStyleDelete;
+}
+
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
+        
+        [_itemArray removeObjectAtIndex:indexPath.row];        
+        [self.tableView beginUpdates];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
+        [self.tableView endUpdates];
+    }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        [self addItem];
     }   
 }
-*/
 
-/*
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
+    id item = _itemArray[fromIndexPath.row];
+    [_itemArray insertObject:item atIndex:toIndexPath.row];
+    [_itemArray removeObjectAtIndex:fromIndexPath.row];
 }
-*/
 
-/*
 // Override to support conditional rearranging of the table view.
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the item to be re-orderable.
+    if (indexPath.row == _itemArray.count) {
+        return NO;
+    }
+    
     return YES;
 }
-*/
 
 #pragma mark - Table view delegate
 
