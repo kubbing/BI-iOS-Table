@@ -7,12 +7,15 @@
 //
 
 #import "AppDelegate.h"
+#import "NetworkService.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    [[NetworkService sharedService] put];
     
     return YES;
 }

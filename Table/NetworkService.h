@@ -28,4 +28,6 @@
 
 - (void)createItem:(Item *)item success:(void (^)(Item *item))onSuccess failure:(void (^)())onFailure;
 
+- (void)put;
+
 @end

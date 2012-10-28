@@ -36,6 +36,9 @@
         _client = [AFHTTPClient clientWithBaseURL:url];
         [_client registerHTTPOperationClass:[AFJSONRequestOperation class]];
         _client.operationQueue.maxConcurrentOperationCount = 2;
+        
+//        [_client setDefaultHeader:@"Accept-Charset" value:@"UTF-8"];
+//        [_client setDefaultHeader:@"Accept-Charset" value:@"utf-8"];
     }
     
     return self;
@@ -117,6 +120,19 @@
                          onFailure();
                      }
                  }];
+}
+
+- (void)put
+{
+    NSDictionary *parameters = @{
+        @"item[title]" : @"novy titulek"
+    };
+    
+    [_client putPath:@"items/5.json" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        TRC_LOG(@"%d, PUT %@", operation.response.statusCode, operation.request.URL);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        TRC_LOG(@"%d, PUT %@", operation.response.statusCode, operation.request.URL);
+    }];
 }
 
 @end
