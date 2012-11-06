@@ -125,10 +125,14 @@
 - (void)put
 {
     NSDictionary *parameters = @{
-        @"item[title]" : @"novy titulek"
+    @"item[title]" : @"novy titulek",
+    @"item[available]" : @"2012-10-24",
+    @"item[description]" : @"hellou",
+    @"item[price]" : @(12.99),
+    @"item[imageurl]" : @"http://imag.jpes",
     };
     
-    [_client putPath:@"items/5.json" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [_client putPath:@"items/1.json" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         TRC_LOG(@"%d, PUT %@", operation.response.statusCode, operation.request.URL);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         TRC_LOG(@"%d, PUT %@", operation.response.statusCode, operation.request.URL);

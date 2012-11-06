@@ -7,7 +7,9 @@
 //
 
 #import "AppDelegate.h"
+
 #import "NetworkService.h"
+
 
 @implementation AppDelegate
 
@@ -15,7 +17,16 @@
 {
     // Override point for customization after application launch.
     
-    [[NetworkService sharedService] put];
+//    Item *item = [[Item alloc] init];
+//    item.title = @"hellou novy item";
+//    [[NetworkService sharedService] createItem:item
+//                                        success:^(Item *item) {
+//                                            ;
+//    } failure:^{
+//        ;
+//    }];
+    
+//    [[NetworkService sharedService] put];
     
     return YES;
 }

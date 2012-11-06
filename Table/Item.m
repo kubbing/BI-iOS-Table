@@ -50,7 +50,9 @@
     @"item[title]" : _title? _title : [NSNull null],
     @"item[subtitle]" : _subtitle? _subtitle : [NSNull null],
     @"item[description]" : [NSNull null],
-    @"item[price]" : @(3.1415)
+    @"item[price]" : @(15.10),
+    @"item[available]" : @"2012-11-05",
+    @"item[imageurl]" : [NSNull null],
     };
 }
 
