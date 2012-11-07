@@ -132,7 +132,7 @@
     @"item[imageurl]" : @"http://imag.jpes",
     };
     
-    [_client putPath:@"items/1.json" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [_client putPath:@"items/11.json" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         TRC_LOG(@"%d, PUT %@", operation.response.statusCode, operation.request.URL);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         TRC_LOG(@"%d, PUT %@", operation.response.statusCode, operation.request.URL);

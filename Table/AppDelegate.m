@@ -26,7 +26,7 @@
 //        ;
 //    }];
     
-//    [[NetworkService sharedService] put];
+    [[NetworkService sharedService] put];
     
     return YES;
 }
